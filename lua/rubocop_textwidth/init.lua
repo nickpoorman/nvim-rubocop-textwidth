@@ -1,8 +1,17 @@
 local M = {}
 
-local ok, lyaml = pcall(require, "lyaml")
-if not ok then
-	vim.api.nvim_err_writeln("Failed to load lyaml: " .. lyaml)
+local function debug_require(module_name)
+	local success, result = pcall(require, module_name)
+	if not success then
+		vim.notify("Failed to load " .. module_name .. ": " .. tostring(result), vim.log.levels.ERROR)
+		vim.notify("package.path: " .. package.path, vim.log.levels.DEBUG)
+		vim.notify("package.cpath: " .. package.cpath, vim.log.levels.DEBUG)
+	end
+	return success, result
+end
+
+local lyaml_ok, lyaml = debug_require("lyaml")
+if not lyaml_ok then
 	return M
 end
 
