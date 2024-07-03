@@ -1,6 +1,6 @@
 local M = {}
 
-local yaml = require("yaml")
+local lyaml = require("lyaml")
 
 -- Function to set textwidth from rubocop --show-cops
 local function set_textwidth_from_rubocop()
@@ -13,7 +13,7 @@ local function set_textwidth_from_rubocop()
 		handle:close()
 
 		if result then
-			local config = yaml.load(result)
+			local config = lyaml.load(result)
 			if config and config["Layout/LineLength"] and config["Layout/LineLength"].Max then
 				local max_line_length = config["Layout/LineLength"].Max
 				vim.opt.textwidth = max_line_length
