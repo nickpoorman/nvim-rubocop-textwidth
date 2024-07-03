@@ -1,6 +1,10 @@
 local M = {}
 
-local lyaml = require("lyaml")
+local ok, lyaml = pcall(require, "lyaml")
+if not ok then
+	vim.api.nvim_err_writeln("Failed to load lyaml: " .. lyaml)
+	return M
+end
 
 -- Function to set textwidth from rubocop --show-cops
 local function set_textwidth_from_rubocop()
