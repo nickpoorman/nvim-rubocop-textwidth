@@ -6,6 +6,8 @@ local function debug_require(module_name)
 		vim.notify("Failed to load " .. module_name .. ": " .. tostring(result), vim.log.levels.ERROR)
 		vim.notify("package.path: " .. package.path, vim.log.levels.DEBUG)
 		vim.notify("package.cpath: " .. package.cpath, vim.log.levels.DEBUG)
+	else
+		vim.notify(module_name .. " loaded successfully", vim.log.levels.INFO)
 	end
 	return success, result
 end
@@ -36,6 +38,7 @@ local function set_textwidth_from_rubocop()
 end
 
 function M.setup()
+	vim.notify("rubocop_textwidth.setup called", vim.log.levels.INFO)
 	-- Call the function when a Ruby file is opened
 	vim.api.nvim_create_autocmd("BufReadPost", {
 		pattern = "*.rb",
