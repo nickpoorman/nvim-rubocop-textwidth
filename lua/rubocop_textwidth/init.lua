@@ -1,24 +1,8 @@
 local M = {}
 
-local function debug_require(module_name)
-	local success, result = pcall(require, module_name)
-	if not success then
-		vim.notify("Failed to load " .. module_name .. ": " .. tostring(result), vim.log.levels.ERROR)
-		vim.notify("package.path: " .. package.path, vim.log.levels.DEBUG)
-		vim.notify("package.cpath: " .. package.cpath, vim.log.levels.DEBUG)
-	else
-		vim.notify(module_name .. " loaded successfully", vim.log.levels.INFO)
-	end
-	return success, result
-end
-
-local lyaml_ok, lyaml = debug_require("lyaml")
-if not lyaml_ok then
-	return M
-end
+local lyaml = require("lyaml")
 
 function M.setup()
-	vim.notify("rubocop_textwidth.setup called", vim.log.levels.INFO)
 	-- Function to set textwidth from rubocop --show-cops
 	local function set_textwidth_from_rubocop()
 		local cwd = vim.fn.getcwd()
